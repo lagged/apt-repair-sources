@@ -76,7 +76,7 @@ work.each do |f|
             next
           end
 
-          if dry_run === true
+          if dry_run == true
             puts "#{f}: #{uri} >> #{res.code}"
           end
 
@@ -87,8 +87,8 @@ work.each do |f|
       end
     end
 
-    # save to be save
-    if dry_run !== true
+    # save to be safe
+    if dry_run != true
       puts f
       puts keep
     end

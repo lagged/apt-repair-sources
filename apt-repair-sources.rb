@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 #
-# apt-get install libtrollop-ruby
+# gem install trollop
 #
 
 work = []
@@ -18,6 +18,7 @@ if work.length == 0
   exit
 end
 
+require 'rubygems'
 require 'trollop'
 require 'net/http'
 
@@ -30,8 +31,8 @@ Usage:
 
     sudo apt-repair-sources --dry-run|--fix-it-for-me
 EOS
-  opt :dry_run, "Display bad entries, this is enable by default", :default => true
-  opt :fix_it_for_me, "Remove bad entries from the sources"
+  opt :dry_run, "Display bad entries, this is enabled by default (no changes)", :default => false
+  opt :fix_it_for_me, "Remove bad entries from the sources (changes will be made)", :default => false
 end
 
 p opts

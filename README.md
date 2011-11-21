@@ -1,6 +1,8 @@
 ## apt-repair-sources
 
-Find broken packages in your sources.list (or sources.list.d/*).
+Find broken packages in your sources.list (or sources.list.d/*). This code is [BSD licensed][bsd].
+
+[bsd]: http://www.opensource.org/licenses/bsd-license.php
 
 ### Setup
 

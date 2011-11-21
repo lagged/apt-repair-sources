@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 #
-# gem install trollop
+# Author:    Till Klampaeckel
+# License:   New BSD License, http://www.opensource.org/licenses/bsd-license.php
+# Setup:     gem install trollop
+# Copyright: 2011 Till Klampaeckel
 #
 
 work = []

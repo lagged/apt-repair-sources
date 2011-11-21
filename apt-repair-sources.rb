@@ -21,6 +21,8 @@ def find_platform
   return `dpkg --print-architecture`.gsub(/\s+/, "")
 end
 
+dry_run = true
+
 p = find_platform
 
 work.each do |f| 
@@ -72,10 +74,22 @@ work.each do |f|
             next
           end
 
-          puts "#{f}: #{uri} >> #{res.code}"
+          if dry_run === true
+            puts "#{f}: #{uri} >> #{res.code}"
+          end
+
+          keep.push("#" + "#{l}");
+
         end
 
       end
     end
+
+    # save to be save
+    if dry_run !== true
+      puts f
+      puts keep
+    end
+
   end
 end

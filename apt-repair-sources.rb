@@ -138,9 +138,10 @@ work.each do |f|
     end
 
     # save to be safe
-    if dry_run != true
-      puts f
-      puts keep
+    if dry_run == false && err > 0
+      File.open(f, 'w') do |f|
+        f.write(keep.join("\n"))
+      end
     end
 
   end

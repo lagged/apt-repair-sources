@@ -19,17 +19,6 @@ require 'net/http'
 
 def find_platform
   return `dpkg --print-architecture`.gsub(/\s+/, "")
-
-  # wat?
-  s = `uname -m`.gsub(/\s+/, "")
-  case s
-  when 'x86_64'
-    return 'amd64'
-  when 'i686'
-    return 'i386'
-  else
-    raise NotImplementedError.new("Unknown platform: #{s}")
-  end
 end
 
 p = find_platform

@@ -21,13 +21,63 @@ end
 require 'trollop'
 require 'net/http'
 
-def find_platform
-  return `dpkg --print-architecture`.gsub(/\s+/, "")
+opts = Trollop::options do
+  version "apt-repair-sources 0.1.0 (c) 2011 Till Klampaeckel"
+  banner <<-EOS
+This tool helps you clean out bad entries from apt's sources.
+
+Usage:
+
+    sudo apt-repair-sources --dry-run|--fix-it-for-me
+EOS
+  opt :dry_run, "Display bad entries, this is enable by default", :default => true
+  opt :fix_it_for_me, "Remove bad entries from the sources"
+end
+
+p opts
+exit
+
+
+
+class AptRepairSources
+
+  def initialize(line)
+    @e = line.split(" ")
+  end
+
+  def self.find_platform
+    return `dpkg --print-architecture`.gsub(/\s+/, "")
+  end
+
+  def get_el
+
+    el = @e
+
+    el.shift
+    el.shift
+    el.shift
+
+    return el
+  end
+
+  def get_type
+    return @e[0]
+  end
+
+  def get_url
+    url = @e[1]
+    if url[-1,1] != "/"
+      url += "/"
+    end
+    url += "dists/" + @e[2] + "/"
+    return url
+  end
+
 end
 
 dry_run = true
 
-p = find_platform
+p = AptRepairSources::find_platform
 
 work.each do |f| 
   File.open(f, "r") do |infile|
@@ -42,22 +92,10 @@ work.each do |f|
         next
       end
 
-      el = l.split(" ")
-
-      type = el[0]
-
-      url = el[1]
-      if url[-1,1] != "/"
-        url += "/"
-      end
-      url += "dists/" + el[2] + "/"
-
-      el.shift
-      el.shift
-      el.shift
-
-      #puts el
-      #next
+      helper = AptRepairSources.new(l)
+      type   = helper.get_type
+      url    = helper.get_url
+      el     = helper.get_el
 
       el.each do |t|
 

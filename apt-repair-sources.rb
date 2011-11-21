@@ -82,8 +82,6 @@ class AptRepairSources
 
 end
 
-dry_run = true
-
 p = AptRepairSources::find_platform
 
 work.each do |f| 

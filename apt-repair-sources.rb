@@ -84,7 +84,7 @@ work.each do |f|
     keep = []
     while (l = infile.gets) 
 
-      if l.empty? 
+      if l.nil? || l.empty? 
         next
       end
 

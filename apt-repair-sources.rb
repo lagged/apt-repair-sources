@@ -1,4 +1,7 @@
 #!/usr/bin/env ruby
+#
+# apt-get install libtrollop-ruby
+#
 
 work = []
 
@@ -15,6 +18,7 @@ if work.length == 0
   exit
 end
 
+require 'trollop'
 require 'net/http'
 
 def find_platform

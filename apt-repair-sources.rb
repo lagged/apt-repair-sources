@@ -27,6 +27,7 @@ p = find_platform
 
 work.each do |f| 
   File.open(f, "r") do |infile|
+    keep = []
     while (l = infile.gets) 
 
       if l.empty? 
@@ -71,6 +72,7 @@ work.each do |f|
           res = http.head(u.path)
 
           if res.code == "200"
+            keep.push(l)
             next
           end
 

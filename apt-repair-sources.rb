@@ -87,6 +87,7 @@ p = AptRepairSources::find_platform
 work.each do |f| 
   File.open(f, "r") do |infile|
     keep = []
+    err  = 0
     while (l = infile.gets) 
 
       if l.nil? || l.empty? 
@@ -122,6 +123,8 @@ work.each do |f|
             keep.push(l)
             next
           end
+
+          err += 1
 
           if dry_run == true
             puts "#{f}: #{uri} >> #{res.code}"

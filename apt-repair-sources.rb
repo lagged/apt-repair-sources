@@ -35,10 +35,16 @@ EOS
   opt :fix_it_for_me, "Remove bad entries from the sources (changes will be made)", :default => false
 end
 
-p opts
-exit
-
-
+if opts[:dry_run] == true && opts[:fix_it_for_me] == true
+  puts "Cannot have both."
+  exit 1
+else
+  if opts[:fix_it_for_me_given] && opts[:fix_it_for_me] == true
+    dry_run = false
+  else
+    dry_run = true
+  end
+end
 
 class AptRepairSources
 

@@ -83,6 +83,39 @@ class AptRepairSources
     return url
   end
 
+  def fix_line
+    el = @e
+
+    u = URI(el[1])
+
+    disable = false
+
+    case u.host
+    when "archive.ubuntu.com"
+      u.host = "old-releases.ubuntu.com"
+    when "old-releases.ubuntu.com"
+      raise Exception, "You're fucked."
+    else
+      # this is tricky, e.g. is the mirror down or did it move?
+      
+
+
+      if u.host[-11,11] == '.ubuntu.com'
+        u.host = "archive.ubuntu.com"
+      else
+        disable = true
+      end
+    end
+
+    el[1] = u.to_s
+    line  = el.join(" ")
+    if disable == true
+      line = '#' + line
+    end
+
+    return line
+  end
+
 end
 
 p = AptRepairSources::find_platform
@@ -133,6 +166,7 @@ work.each do |f|
         if dry_run == true
           puts "#{f}: #{uri} >> #{res.code}"
         end
+        keep.push(helper.fix_line);
 
       end
     end

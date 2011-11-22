@@ -74,7 +74,7 @@ class AptRepairSources
   # with them. type (deb, deb-src), url and distribution are stripped. 
   # @return [Array]
   def get_el
-    el = @line.split(" ")
+    el = @l.split(" ")
 
     el.shift
     el.shift
@@ -103,7 +103,7 @@ class AptRepairSources
   # the failover is always to comment it out.
   # @return [String]
   def fix_line
-    el = @line.split(" ")
+    el = @l.split(" ")
 
     u = URI(el[1])
 

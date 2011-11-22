@@ -110,10 +110,15 @@ class AptRepairSources
     disable = false
 
     case u.host
-    when "archive.ubuntu.com"
+    when "releases.ubuntu.com"
+      c      = u.host
+      u.host = "archive.ubuntu.com"
+      if self.uri_exists(u.to_s) == false
+        u.host = c
+      end
+    when "archive.ubuntu.com", "security.ubuntu.com"
       c      = u.host
       u.host = "old-releases.ubuntu.com"
-
       if self.uri_exists(u.to_s) == false
         u.host = c
       end
@@ -121,17 +126,22 @@ class AptRepairSources
       raise Exception, "You're fucked."
     else
       # this is tricky, e.g. is the mirror down or did it move?
-      if u.host[-11,11] == '.ubuntu.com'
-        c      = u.host
+      c = u.host
+
+      if c =~ '/(.*)\.releases\.ubuntu\.com/'
         u.host = "archive.ubuntu.com"
-
-        if self.uri_exists(u.to_s) == false
-          u.host = c
-        end
-
+      elsif c =~ '/(.*)\.archive\.ubuntu\.com/'
+        u.host = "old-releases.ubuntu.com"
       else
         disable = true
       end
+
+      if disable == false
+        if self.uri_exists(u.to_s) == false
+          u.host = c
+        end
+      end
+
     end
 
     el[1] = u.to_s

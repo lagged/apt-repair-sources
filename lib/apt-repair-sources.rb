@@ -83,9 +83,9 @@ class AptRepairSources
       # this is tricky, e.g. is the mirror down or did it move?
       c = u.host
 
-      if c =~ '/(.*)\.releases\.ubuntu\.com/'
+      if c =~ /(.*)\.releases\.ubuntu\.com/
         u.host = "archive.ubuntu.com"
-      elsif c =~ '/(.*)\.archive\.ubuntu\.com/'
+      elsif c =~ /(.*)\.archive\.ubuntu\.com/
         u.host = "old-releases.ubuntu.com"
       else
         disable = true

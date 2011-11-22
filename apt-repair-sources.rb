@@ -159,6 +159,8 @@ work.each do |f|
       url    = helper.get_url
       el     = helper.get_el
 
+      has_error = false
+
       el.each do |t|
 
         uri = url + t
@@ -169,9 +171,10 @@ work.each do |f|
         end
 
         if helper.uri_exists(uri) == true
-          keep.push(l)
           next
         end
+
+        has_error = true
 
         err += 1
 
@@ -179,9 +182,14 @@ work.each do |f|
           puts "#{f}: #{uri}"
         end
 
-        keep.push(helper.fix_line);
-
       end
+
+      if has_error == true
+        keep.push(helper.fix_line)
+      else
+        keep.push(l)
+      end
+
     end
 
     # save to be safe

@@ -39,7 +39,12 @@ class AptRepairSources
   end
 
   # @return [String] Create the base url to test against.
-  def get_url
+  def get_url(base)
+    if base.nil?
+      url = @e[1]
+    else
+      url = base
+    end
     url = @e[1]
     if url[-1,1] != "/"
       url += "/"
@@ -63,13 +68,13 @@ class AptRepairSources
     when "releases.ubuntu.com"
       c      = u.host
       u.host = "archive.ubuntu.com"
-      if self.uri_exists(u.to_s) == false
+      if self.uri_exists(self.get_url(u.to_s)) == false
         u.host = c
       end
     when "archive.ubuntu.com", "security.ubuntu.com"
       c      = u.host
       u.host = "old-releases.ubuntu.com"
-      if self.uri_exists(u.to_s) == false
+      if self.uri_exists(self.get_url(u.to_s)) == false
         u.host = c
       end
     when "old-releases.ubuntu.com"

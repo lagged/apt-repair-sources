@@ -74,7 +74,7 @@ work.each do |f|
 
       helper = AptRepairSources.new(l)
       type   = helper.get_type
-      url    = helper.get_url
+      url    = helper.get_url(nil)
       el     = helper.get_el
 
       has_error = false

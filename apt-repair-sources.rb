@@ -119,5 +119,9 @@ work.each do |f|
       end
     end
 
+    if err == 0 && dry_run == true
+      puts "There are no errors in #{f}"
+    end
+
   end
 end

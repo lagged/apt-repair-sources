@@ -49,16 +49,23 @@ else
   end
 end
 
+# @author Till Klampaeckel
 class AptRepairSources
 
+  # @param [String] line A line from a source.list file.
+  # @return [AptRepairSources]
   def initialize(line)
     @e = line.split(" ")
   end
 
+  # @return [String] The architecture: amd64, i686
   def self.find_platform
     return `dpkg --print-architecture`.gsub(/\s+/, "")
   end
 
+  # Each 'line' in a sources.list file contains various elements, this is an array
+  # with them. type (deb, deb-src), url and distribution are stripped. 
+  # @return [Array]
   def get_el
 
     el = @e
@@ -70,10 +77,12 @@ class AptRepairSources
     return el
   end
 
+  # @return [String] The type: most likely deb or deb-src
   def get_type
     return @e[0]
   end
 
+  # @return [String] Create the base url to test against.
   def get_url
     url = @e[1]
     if url[-1,1] != "/"
@@ -83,6 +92,10 @@ class AptRepairSources
     return url
   end
 
+  # Tries to fix a line from a sources.list file by correcting the URL or commenting
+  # it out. When the URL is corrected, we attempt to test if the new URL exists. The
+  # the failover is always to comment it out.
+  # @return [String]
   def fix_line
     el = @e
 
@@ -125,6 +138,9 @@ class AptRepairSources
     return line
   end
 
+  # Check if a URL exists by issueing a HEAD request.
+  # @param [String] URL
+  # @return [Boolean]
   def uri_exists(url)
 
     u = URI(url)

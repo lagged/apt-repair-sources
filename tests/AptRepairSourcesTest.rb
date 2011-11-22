@@ -13,7 +13,6 @@ class AptRepairSourcesTest < Test::Unit::TestCase
     assert_equal("deb", helper.get_type)
   end
 
-
   def test_url
     l = "deb http://archive.ubuntu.com/ubuntu/ lucid main restricted universe multiverse"
 
@@ -29,6 +28,7 @@ class AptRepairSourcesTest < Test::Unit::TestCase
 
   end
 
+  # Karmic moved from archive to old-releases.
   def test_archive
     l = "deb http://archive.ubuntu.com/ubuntu/ karmic main universe"
     e = "deb http://old-releases.ubuntu.com/ubuntu/ karmic main universe"
@@ -37,6 +37,7 @@ class AptRepairSourcesTest < Test::Unit::TestCase
     assert_equal(e, helper.fix_line)
   end
 
+  # Assert that old entries move according to plan.
   def test_multiverse_security
     l = "deb-src http://security.ubuntu.com/ubuntu karmic-security main universe"
     e = "deb-src http://old-releases.ubuntu.com/ubuntu karmic-security main universe"

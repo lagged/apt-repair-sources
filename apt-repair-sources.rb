@@ -27,12 +27,10 @@ if work.length == 0
   exit
 end
 
-$: << File.join(File.dirname(__FILE__), "..", "lib")
-
 require 'rubygems'
 require 'trollop'
 require 'net/http'
-require 'AptRepairSources'
+require './lib/AptRepairSources'
 
 opts = Trollop::options do
   version "apt-repair-sources 0.1.0 (c) 2011 Till Klampaeckel"

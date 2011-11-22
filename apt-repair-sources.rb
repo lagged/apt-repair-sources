@@ -128,13 +128,12 @@ class AptRepairSources
       http.open_timeout = 1
       http.read_timeout = 1
       res = http.head(u.path)
-    end
 
-    if res.code == "200"
-      return true
+      if res.code == "200"
+        return true
+      end
+      return false
     end
-
-    return false
   end
 
 end

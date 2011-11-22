@@ -5,6 +5,14 @@ require 'AptRepairSources'
 require 'test/unit'
 
 class AptRepairSourcesTest < Test::Unit::TestCase
+  def test_type
+    l = "deb http://archive.ubuntu.com/ubuntu/ lucid main restricted universe multiverse"
+
+    helper = AptRepairSources.new(l)
+
+    assert_equal("deb", helper.get_type)
+  end
+
   def test_archive
     l = "deb http://archive.ubuntu.com/ubuntu/ karmic main universe"
     e = "deb http://old-releases.ubuntu.com/ubuntu/ karmic main universe"

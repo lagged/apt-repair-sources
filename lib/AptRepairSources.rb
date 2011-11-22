@@ -53,7 +53,6 @@ class AptRepairSources
     else
       url = base
     end
-    url = @e[1]
     if url[-1,1] != "/"
       url += "/"
     end

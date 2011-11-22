@@ -37,6 +37,16 @@ class AptRepairSourcesTest < Test::Unit::TestCase
     assert_equal(e, helper.fix_line)
   end
 
+  # AptRepairSources::get_url - parameter test
+  def test_get_url
+    l = "deb-src http://security.ubuntu.com/ubuntu karmic-security main universe"
+
+    helper = AptRepairSources.new(l)
+    assert_equal("http://security.ubuntu.com/ubuntu/dists/karmic-security/", helper.get_url(nil))
+
+    assert_equal("http://old-releases.ubuntu.com/ubuntu/dists/karmic-security/", helper.get_url("http://old-releases.ubuntu.com/ubuntu"))
+  end
+
   # Assert that old entries move according to plan.
   def test_multiverse_security
     l = "deb-src http://security.ubuntu.com/ubuntu karmic-security main universe"

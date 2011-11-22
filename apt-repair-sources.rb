@@ -85,12 +85,8 @@ work.each do |f|
 
         break if has_error == true
 
-        uri = url + t
-        if type == 'deb'
-          uri += "/binary-#{p}/Packages.gz"
-        else
-          uri += "/source/Sources.gz"
-        end
+        uri  = url + t
+        uri += helper.get_end
 
         if helper.uri_exists(uri) == true
           next

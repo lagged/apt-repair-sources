@@ -61,6 +61,7 @@ class AptRepairSources
   # @param [String] line A line from a source.list file.
   # @return [AptRepairSources]
   def initialize(line)
+    @l = line
     @e = line.split(" ")
   end
 
@@ -73,8 +74,7 @@ class AptRepairSources
   # with them. type (deb, deb-src), url and distribution are stripped. 
   # @return [Array]
   def get_el
-
-    el = @e
+    el = @line.split(" ")
 
     el.shift
     el.shift
@@ -103,7 +103,7 @@ class AptRepairSources
   # the failover is always to comment it out.
   # @return [String]
   def fix_line
-    el = @e
+    el = @line.split(" ")
 
     u = URI(el[1])
 

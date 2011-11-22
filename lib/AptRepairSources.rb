@@ -33,6 +33,14 @@ class AptRepairSources
     return el
   end
 
+  # @return [String] For the URL test!
+  def get_end
+    if @e[0] == 'deb'
+      return "/binary-#{self.class.find_platform}/Packages.gz"
+    end
+    return "/source/Sources.gz"
+  end
+
   # @return [String] The type: most likely deb or deb-src
   def get_type
     return @e[0]

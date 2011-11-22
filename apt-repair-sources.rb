@@ -121,20 +121,17 @@ work.each do |f|
           http.open_timeout = 1
           http.read_timeout = 1
           res = http.head(u.path)
+        end
 
-          if res.code == "200"
-            keep.push(l)
-            next
-          end
+        if res.code == "200"
+          keep.push(l)
+          next
+        end
 
-          err += 1
+        err += 1
 
-          if dry_run == true
-            puts "#{f}: #{uri} >> #{res.code}"
-          end
-
-          keep.push("#" + "#{l}");
-
+        if dry_run == true
+          puts "#{f}: #{uri} >> #{res.code}"
         end
 
       end

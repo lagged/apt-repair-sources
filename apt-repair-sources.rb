@@ -190,7 +190,7 @@ work.each do |f|
 
       el.each do |t|
 
-        break if has_error = true
+        break if has_error == true
 
         uri = url + t
         if type == 'deb'

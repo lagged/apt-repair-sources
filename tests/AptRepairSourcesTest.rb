@@ -13,6 +13,22 @@ class AptRepairSourcesTest < Test::Unit::TestCase
     assert_equal("deb", helper.get_type)
   end
 
+
+  def test_url
+    l = "deb http://archive.ubuntu.com/ubuntu/ lucid main restricted universe multiverse"
+
+    helper = AptRepairSources.new(l)
+
+    u  = helper.get_url(nil)
+    el = helper.get_el
+
+    el.each do |t|
+      c = u + t + helper.get_end
+      assert_equal(true, helper.uri_exists(c))
+    end
+
+  end
+
   def test_archive
     l = "deb http://archive.ubuntu.com/ubuntu/ karmic main universe"
     e = "deb http://old-releases.ubuntu.com/ubuntu/ karmic main universe"

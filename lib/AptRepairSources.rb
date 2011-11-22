@@ -57,7 +57,7 @@ class AptRepairSources
     if url[-1,1] != "/"
       url += "/"
     end
-    url += "dists/" + @e[2]
+    url += "dists/" + @e[2] + "/"
     return url
   end
 

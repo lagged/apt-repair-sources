@@ -92,7 +92,12 @@ class AptRepairSources
 
     case u.host
     when "archive.ubuntu.com"
+      c      = u.host
       u.host = "old-releases.ubuntu.com"
+
+      if self.uri_exists(u.to_s) == false
+        u.host = c
+      end
     when "old-releases.ubuntu.com"
       raise Exception, "You're fucked."
     else

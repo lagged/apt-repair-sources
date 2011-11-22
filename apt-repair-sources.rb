@@ -73,7 +73,6 @@ work.each do |f|
       end
 
       helper = AptRepairSources.new(l)
-      type   = helper.get_type
       url    = helper.get_url(nil)
       el     = helper.get_el
 

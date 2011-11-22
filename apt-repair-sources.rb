@@ -6,6 +6,12 @@
 # Copyright: 2011 Till Klampaeckel
 #
 
+ubuntu = `lsb_release -i|awk '{print $3}'`.gsub(/\s+/, "")
+if (ubuntu != 'Ubuntu') 
+  puts "Ubuntu-only, currently."
+  exit 1
+end
+
 work = []
 
 if File.exist?("/etc/apt/sources.list") 

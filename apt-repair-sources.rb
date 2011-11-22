@@ -97,11 +97,14 @@ class AptRepairSources
       raise Exception, "You're fucked."
     else
       # this is tricky, e.g. is the mirror down or did it move?
-      
-
-
       if u.host[-11,11] == '.ubuntu.com'
+        c      = u.host
         u.host = "archive.ubuntu.com"
+
+        if self.uri_exists(u.to_s) == false
+          u.host = c
+        end
+
       else
         disable = true
       end

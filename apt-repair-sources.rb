@@ -109,11 +109,29 @@ class AptRepairSources
 
     el[1] = u.to_s
     line  = el.join(" ")
+
     if disable == true
       line = '#' + line
     end
 
     return line
+  end
+
+  def uri_exists(url)
+
+    u = URI(url)
+
+    Net::HTTP.start(u.host, u.port) do |http|
+      http.open_timeout = 1
+      http.read_timeout = 1
+      res = http.head(u.path)
+    end
+
+    if res.code == "200"
+      return true
+    end
+
+    return false
   end
 
 end
@@ -148,15 +166,7 @@ work.each do |f|
           uri += "/source/Sources.gz"
         end
 
-        u = URI(uri)
-
-        Net::HTTP.start(u.host, u.port) do |http|
-          http.open_timeout = 1
-          http.read_timeout = 1
-          res = http.head(u.path)
-        end
-
-        if res.code == "200"
+        if helper.uri_exists(uri) == true
           keep.push(l)
           next
         end
@@ -164,8 +174,9 @@ work.each do |f|
         err += 1
 
         if dry_run == true
-          puts "#{f}: #{uri} >> #{res.code}"
+          puts "#{f}: #{uri}"
         end
+
         keep.push(helper.fix_line);
 
       end

@@ -6,7 +6,7 @@
 #
 
 # @author Till Klampaeckel
-class AptRepairSources
+class Apt::Repair::Sources
 
   # @param [String] line A line from a source.list file.
   # @return [AptRepairSources]

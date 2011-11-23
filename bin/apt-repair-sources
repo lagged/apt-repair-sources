@@ -32,7 +32,7 @@ require 'trollop'
 require 'net/http'
 
 $: << File.join(File.dirname(__FILE__), "..", "lib")
-require 'AptRepairSources'
+require 'apt/repair/sources'
 
 opts = Trollop::options do
   version "apt-repair-sources 0.1.0 (c) 2011 Till Klampaeckel"
@@ -58,7 +58,7 @@ else
   end
 end
 
-p = AptRepairSources::find_platform
+p = Apt::Repair::Sources::find_platform
 
 work.each do |f| 
   File.open(f, "r") do |infile|
@@ -74,7 +74,7 @@ work.each do |f|
         next
       end
 
-      helper = AptRepairSources.new(l)
+      helper = Apt::Repair::Sources.new(l)
       url    = helper.get_url(nil)
       el     = helper.get_el
 

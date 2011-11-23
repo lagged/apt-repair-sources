@@ -6,6 +6,13 @@
 # Copyright: 2011 Till Klampaeckel
 #
 
+require 'rubygems'
+require 'trollop'
+require 'net/http'
+
+$: << File.join(File.dirname(__FILE__), "..", "lib")
+require 'apt/repair/sources'
+
 ubuntu = `lsb_release -i|awk '{print $3}'`.gsub(/\s+/, "")
 if (ubuntu != 'Ubuntu') 
   puts "Ubuntu-only, currently."
@@ -26,13 +33,6 @@ if work.length == 0
   puts "Nothing to be done."
   exit
 end
-
-require 'rubygems'
-require 'trollop'
-require 'net/http'
-
-$: << File.join(File.dirname(__FILE__), "..", "lib")
-require 'apt/repair/sources'
 
 opts = Trollop::options do
   version "apt-repair-sources 0.1.0 (c) 2011 Till Klampaeckel"
